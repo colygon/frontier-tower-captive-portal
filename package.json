@@ -11,25 +11,32 @@
     "docker:build": "docker build -t frontier-tower-captive-portal .",
     "docker:run": "docker run -p 4545:4545 frontier-tower-captive-portal"
   },
-  "keywords": ["unifi", "captive-portal", "wifi", "hotspot", "typescript"],
+  "keywords": [
+    "unifi",
+    "captive-portal",
+    "wifi",
+    "hotspot",
+    "typescript"
+  ],
   "author": "Frontier Tower",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.18.2",
-    "node-unifi": "^2.5.1",
     "axios": "^1.6.0",
-    "dotenv": "^16.3.1",
-    "helmet": "^7.1.0",
-    "cors": "^2.8.5",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "node-unifi": "^2.5.1",
     "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.0",
-    "@types/cors": "^2.8.17",
-    "typescript": "^5.3.2",
-    "ts-node": "^10.9.1"
+    "@vercel/node": "^5.3.6",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.3.2"
   },
   "engines": {
     "node": ">=20.0.0"
