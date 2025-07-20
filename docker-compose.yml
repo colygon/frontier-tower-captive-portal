@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontier-tower-captive-portal:
+    build: .
+    ports:
+      - "4545:4545"
+    environment:
+      # UniFi Controller Configuration
+      - UNIFI_CONTROLLER_URL=${UNIFI_CONTROLLER_URL}
+      - UNIFI_USER=${UNIFI_USER}
+      - UNIFI_PASS=${UNIFI_PASS}
+      - UNIFI_SITE_IDENTIFIER=${UNIFI_SITE_IDENTIFIER:-default}
+      - UNIFI_INSECURE=${UNIFI_INSECURE:-false}
+      
+      # Authentication Settings
+      - AUTH=custom
+      - AUTH_DURATION_MINUTES=${AUTH_DURATION_MINUTES:-480}
+      
+      # Logging Configuration
+      - LOG_AUTH_DRIVER=${LOG_AUTH_DRIVER:-webhook}
+      - LOG_AUTH_WEBHOOK_URL=${LOG_AUTH_WEBHOOK_URL}
+      
+      # Branding Configuration
+      - BRAND_COLOR=${BRAND_COLOR:-#667eea}
+      - BRAND_COLOR_DARK=${BRAND_COLOR_DARK:-#5a67d8}
+      - LOGO_TEXT=${LOGO_TEXT:-FT}
+      
+      # Server Configuration
+      - PORT=4545
+      - NODE_ENV=${NODE_ENV:-production}
+      - REDIRECT_URL=${REDIRECT_URL:-https://www.google.com}
+    volumes:
+      # Mount custom HTML if you want to override the built-in one
+      - ./public:/usr/src/app/public:ro
+      # Mount logs directory
+      - ./logs:/usr/src/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:4545/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1) })"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
