@@ -1,11 +1,20 @@
 {
   "version": 2,
-  "name": "frontier-tower-captive-portal",
   "functions": {
     "api/index.ts": {
       "maxDuration": 30
     }
   },
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api"
+    }
+  ],
   "env": {
     "NODE_ENV": "production",
     "BRAND_COLOR": "#667eea",
